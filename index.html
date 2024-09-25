@@ -1959,7 +1959,7 @@ function logOutcome(option) {
 
   // Reference the Firebase database (logs node)
   const db = getDatabase(app); // Ensure Firebase is initialized
-  const newLogRef = ref(db, 'logs/' + Date.now()); // Create a unique log entry based on timestamp
+  const newLogRef = ref(database, 'logs/' + Date.now()); // Create a unique log entry based on timestamp
 
   // Save the log to Firebase
   set(newLogRef, logData)
