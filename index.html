@@ -240,7 +240,7 @@
         <p>"Afon Elai Partnership. How can I help today?"</p>
    	</div>		
                 <div class="options-grid">
-                    <div class="option" onclick="handleOption('Appointment request, telephone')">
+                    <div class="option" onclick="handleOption('telephone')">
                         <img src="https://img.icons8.com/ios/50/000000/phone.png" alt="Telephone Icon" class="icon">
                         <h3>Appointment request</h3>
                     </div>
@@ -1942,21 +1942,34 @@
             }
         }
        
-        function handleOption(logText, option) {
-            logOutcome(logText);
+        function handleOption(option) {
+            logOutcome(option);
             showQuestion(option);
         }
 
-        function logOutcome(logText) {
-            const timestamp = new Date().toISOString();
-            const logData = {
-                option: logText,
-                timestamp: timestamp
-            };
-            const dB = getDatabase(app);
-            const newLogRef = ref(database, 'logs/' + Date.now());
-            set(newLogRef, logData)
-        }
+        // Function to log outcome to Firebase
+function logOutcome(option) {
+  const timestamp = new Date().toISOString();
+
+  // Create a log entry with the option clicked and timestamp
+  const logData = {
+    option: option,
+    timestamp: timestamp
+  };
+
+  // Reference the Firebase database (logs node)
+  const db = getDatabase(app); // Ensure Firebase is initialized
+  const newLogRef = ref(db, 'logs/' + Date.now()); // Create a unique log entry based on timestamp
+
+  // Save the log to Firebase
+  set(newLogRef, logData)
+    .then(() => {
+      console.log('Outcome logged successfully:', logData);
+    })
+    .catch((error) => {
+      console.error('Error logging outcome:', error);
+    });
+}
 
         function handleBack() {
             if (historyStack.length > 1) {
