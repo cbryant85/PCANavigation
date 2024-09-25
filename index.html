@@ -221,25 +221,26 @@
 <body>
     <!-- TOP RIGHT BUTTONS -->
 	<div class="top-right-buttons">
-        <button onclick="viewOutcomes()">View Outcomes</button>
-        <br>
         <button onclick="location.href='mailto:christopher.bryant3@wales.nhs.uk'">Feedback</button>
         <br>
         <button onclick="startOver()">Start Over</button>
+        <br>
+        <button onclick="showConfigPage()">Admin Login</button>
     </div>
 
     <!-- TITLE -->
     <div class="container">
         <h1>PCA Navigation Assistant</h1>
         <div id="question-container">
+            <div id="result-container"></div>
     <!-- QUESTIONS -->
-	<div class="question" id="q0">
+    	<div class="question" id="q0">
 		<div class="script-box">
         <img src="https://img.icons8.com/ios/50/000000/speech-bubble.png" alt="Speech Bubble Icon" class="icon">
         <p>"Afon Elai Partnership. How can I help today?"</p>
    	</div>		
                 <div class="options-grid">
-                    <div class="option" onclick="handleOption('telephone')">
+                    <div class="option" onclick="handleOption('Appointment request, telephone')">
                         <img src="https://img.icons8.com/ios/50/000000/phone.png" alt="Telephone Icon" class="icon">
                         <h3>Appointment request</h3>
                     </div>
@@ -247,7 +248,7 @@
                         <img src="https://img.icons8.com/ios/50/cottage--v1.png" class="icon">
                         <h3>Housecall request</h3>
                     </div>
-                    <div class="option" onclick="handleOption('adminTask')">
+                    <div class="option" onclick="handleOption('Admin task, adminTask')">
                         <img src="https://img.icons8.com/ios/50/000000/admin-settings-male.png" alt="Admin Task Icon" class="icon">
                         <h3>Admin task</h3>
 			                <ul>
@@ -291,15 +292,24 @@
             </ul>
         </div>
     </div>
-    <button onclick="handleAnswer('telephone', 'yes')">Yes</button>
-    <button onclick="handleAnswer('telephone', 'no')">No</button>
+    <button onclick="handleOption('Emergency, emergency')">Yes</button>
+    <button onclick="handleOption('No emergency, q2')">No</button>
 </div>
+
+<!-- EMERGENCY YES -->
+ <div class="question" id="emergency">
+    <div class="emergency-list">
+        <h3><strong>Advise the person to call 999 or attend the Emergency Department</strong></h3>
+    </div>
+    <button onclick="showResult('Directed to emergency services')">Finish</button>
+    <button onclick="handleBack()">Back</button>
+ </div>
 
 <!-- SIGNPOSTING -->
             <div class="question" id="q2">
     <p>Does the patient have a condition suitable for:</p>
     <div class="signposting-grid">
-        <div class="option pharmacy" onclick="handleOption('pharmacy')">
+        <div class="option pharmacy" onclick="handleOption('Pharmacy CAS, pharmacy')">
             <img src="https://img.icons8.com/ios/50/000000/pharmacy-shop.png" alt="Pharmacy Icon" class="icon">
             <h3>Pharmacy Common Ailment Scheme</h3>
             <ul>
@@ -331,7 +341,7 @@
                 <li>Verruca</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('pharmacy_serv')">
+        <div class="option" onclick="handleOption('Pharmacy services, pharmacy_serv')">
             <img src="https://img.icons8.com/ios/50/supplement-bottle--v1.png" class="icon">
             <h3>Pharmacy Services</h3>
             <ul>
@@ -339,28 +349,28 @@
                 <li>Emergency medicines supply</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('optometry')">
+        <div class="option" onclick="handleOption('Optometry, optometry')">
             <img src="https://img.icons8.com/ios/50/000000/glasses.png" alt="Optometry Icon" class="icon">
             <h3>Optometry WGOS 2 Scheme</h3>
             <ul>
                 <li>Any patient with an eye problem</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('111_press_2')">
+        <div class="option" onclick="handleOption('111 press 2, 111_press_2')">
             <img src="https://img.icons8.com/ios/50/000000/phone.png" alt="111 press 2 Icon" class="icon">
             <h3>'111 press 2' Service</h3>
             <ul>
                 <li>Urgent mental health support</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('111')">
+        <div class="option" onclick="handleOption('111, 111')">
             <img src="https://img.icons8.com/ios/50/000000/phone.png" alt="111 Icon" class="icon">
             <h3>111</h3>
             <ul>
                 <li>Acute injuries</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('sexualHealth')">
+        <div class="option" onclick="handleOption('Integrated Sexual Health, sexualHealth')">
             <img src="https://img.icons8.com/ios/50/50/caduceus.png" alt="Sexual Health Icon" class="icon">
             <h3>Integrated Sexual Health</h3>
             <ul>
@@ -368,28 +378,28 @@
                 <li>Emergency contraception</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('physio')">
+        <div class="option" onclick="handleOption('First Contact Physio, physio')">
             <img src="https://img.icons8.com/ios/50/000000/physiotherapy.png" alt="Physio Icon" class="icon">
             <h3>First Contact Physio</h3>
             <ul>
                 <li>>16 year olds with a muscle or joint problem</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('pcls')">
+        <div class="option" onclick="handleOption('PCLS, pcls')">
             <img src="https://img.icons8.com/ios/50/000000/mental-health.png" alt="Mental Health Icon" class="icon">
             <h3>PCLS</h3>
             <ul>
                 <li>>18 year olds with a mental health problem</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('dental')">
+        <div class="option" onclick="handleOption('Dental, dental')">
             <img src="https://img.icons8.com/ios/50/000000/tooth.png" alt="Dental Icon" class="icon">
             <h3>Dental</h3>
             <ul>
                 <li>Any patient with a tooth or mouth problem</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('pregnancy')">
+        <div class="option" onclick="handleOption('Pregnancy Services, pregnancy')">
             <img src="https://img.icons8.com/ios/50/000000/pregnant.png" alt="Pregnancy Icon" class="icon">
             <h3>Pregnancy Services</h3>
             <ul>
@@ -399,7 +409,7 @@
                 <li>Pregnancy Advisory Service</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('podiatry')">
+        <div class="option" onclick="handleOption('Podiatry, podiatry')">
             <img src="https://img.icons8.com/ios/50/right-footprint.png" alt="Podiatry Icon" class="icon">
             <h3>Podiatry</h3>
             <ul>
@@ -407,19 +417,19 @@
             </ul>
         </div>
     </div>
-    <button onclick="handleAnswer('q2', 'no')">No</button>
+    <button onclick="handleOption('Not signposted, q3')">No</button>
 </div>
 
 <!-- SIGNPOSTING OPTIONS -->
 
  <!-- Pharmacy Common Ailment Scheme -->
             <div class="question" id="pharmacy">
-                <p>Check the inclusion criteria for the <a href="CAS-Quick-Reference-Guide_HDUHB-Jan2017.pdf" target="_blank">Pharmacy Common Ailment Scheme</a>.</p>
+                <p>Check the inclusion criteria for the <a href="files/CAS-Quick-Reference-Guide_HDUHB-Jan2017.pdf" target="_blank">Pharmacy Common Ailment Scheme</a>.</p>
 		<div class="script-box">
 		<img src="https://img.icons8.com/ios/50/000000/speech-bubble.png" alt="Speech Bubble Icon" class="icon">
                     <p>"This condition is suitable for the Pharmacy Common Ailment Scheme. You can have a consultation with a pharmacist and they will provide advice and medication if needed, free of charge. Using this scheme will mean that people whose condition is only suitable for a GP can see one sooner."</p>
                 </div>
-                <button onclick="handleAnswer('pharmacy', 'yes')">Inclusion criteria met</button>
+                <button onclick="handleOption('Pharmacy CAS inclusion met, referPharmacy')">Inclusion criteria met</button>
                 <button onclick="handleBack()">Back</button>
             </div>
             <div class="question" id="referPharmacy">
@@ -470,11 +480,11 @@
                 <div class="script-box">
                     <img src="https://img.icons8.com/ios/50/000000/speech-bubble.png" alt="Speech Bubble Icon" class="icon">
                     <p>"For an injury like this, it is most appropriate to call 111, and they will be able to give you advice or direct you to a Minor Injuries Unit"</p>
-    </div>
+                </div>
 
-    <button onclick="showResult('Patient advised to call 111')">Yes</button>
-    <button onclick="handleBack()">Back</button>
-</div>
+            <button onclick="showResult('Patient advised to call 111')">Yes</button>
+            <button onclick="handleBack()">Back</button>
+            </div>
 
 <!-- First Contact Physio -->
             <div class="question" id="physio">
@@ -484,6 +494,7 @@
                     <p>"This condition is suitable for one of our Physiotherapists. They run NHS clinics in the nearby GP surgeries and can diagnose and treat musculoskeletal issues, like joint and muscle pain, without needing a referral. Any information from the consultation is sent back to the surgery."</p>
                 </div>
                 <a href="https://vision360.cymru.nhs.uk/clinical-portal/users/login" target="_blank"><button>Go to V360 Booking System</button></a>
+                <button onclick="showResult('First Contact Physio appointment booked')">Finish</button>
                 <button onclick="handleBack()">Back</button>
             </div>
 
@@ -495,6 +506,7 @@
                     <p>"This condition is suitable for one of our mental health practitioners. You can have a telephone appointment with them and they will assess, advise, support and refer you if necessary. Information about your consultation is sent back to the surgery."</p>
                 </div>
                 <a href="https://vision360.cymru.nhs.uk/clinical-portal/users/login" target="_blank"><button>Go to V360 Booking System</button></a>
+                <button onclick="showResult('PCLS appointment booked')">Finish</button>
                 <button onclick="handleBack()">Back</button>
             </div>
 
@@ -527,25 +539,25 @@
 <!-- Pregnancy Services -->
 <div class="question" id="pregnancy">
     <div class="options-row">
-        <div class="option" onclick="handleOption('midwife_reg')">
+        <div class="option" onclick="handleOption('Midwife registration, midwife_reg')">
             <h3>Midwife registration</h3>
             <ul>
                 <li>New pregnancy</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('midwife_contact')">
+        <div class="option" onclick="handleOption('Midwife contact, midwife_contact')">
             <h3>Midwife contact</h3>
             <ul>
                 <li>Pregnancy query or problem</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('OAU')">
+        <div class="option" onclick="handleOption('Obstetric Assessment Unit, OAU')">
             <h3>Obstetric Assessment Unit</h3>
             <ul>
                 <li>Pregnancy problem</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('PAS')">
+        <div class="option" onclick="handleOption('Pregnancy Advisory Service, PAS')">
             <h3>Pregnancy Advisory Service</h3>
             <ul>
                 <li>Termination of pregnancy</li>
@@ -657,7 +669,7 @@
                     </div>
 
                 <!-- Routine (2-4 weeks) -->
-                    <div class="option routine" onclick="handleOption('routine')">
+                    <div class="option routine" onclick="handleOption('Routine, routine')">
                         <img src="https://img.icons8.com/ios/50/000000/calendar.png" alt="Routine Icon" class="icon">
                         <h3>Routine (2-4 weeks)</h3>
                         <ul>
@@ -682,11 +694,12 @@
                 <p>Which clinician is this suitable for?</p>
                 <div class="options-row">
                 <!-- Physician Associate -->
-                    <div class="option" onclick="handleOption('AHP_sameday')">
+                    <div id="PASameDayOption" class="option" onclick="handleOption('Physician Associate Same Day, AHP_sameday')">
                         <img src="https://img.icons8.com/ios/50/000000/stethoscope.png" alt="Physician Associate Icon" class="icon">
                         <h3>Physician Associate</h3>
                         <ul>
-                            <li>Patient >1 month <65 years</li>
+                            <li>Child over 1 month (check scope of practice)</li>
+                            <li>Adult under 65</li>
                             <li>Mild to moderate acute illness (coughs, D&V)</li>
                             <li>Acute back pain</li>
 			                <li>Severe pain</li>
@@ -696,11 +709,12 @@
                     </div>
 
                 <!-- Advanced Nurse Practitioner -->
-                    <div class="option" onclick="handleOption('ANP_sameday')">
+                    <div id="ANPSameDayOption" class="option" onclick="handleOption('Advanced Nurse Practitioner Same Day, ANP_sameday')">
                         <img src="https://img.icons8.com/ios/50/000000/stethoscope.png" alt="ANP Icon" class="icon">
                         <h3>Advanced Nurse Practitioner</h3>
                         <ul>
-                            <li>Patient >5 years</li>
+                            <li>Patient over 5 years</li>
+                            <li>No pregnant women</li>
                             <li>Moderate acute illness (coughs, sore throat)</li>
                             <li>Minor injuries</li>
                             <li>Infections (UTI, ear infection)</li>
@@ -710,7 +724,7 @@
                     
 
                 <!-- GP -->
-                    <div class="option" onclick="handleOption('GP_sameday')">
+                    <div class="option" onclick="handleOption('GP Same Day, GP_sameday')">
                         <img src="https://img.icons8.com/ios/50/000000/doctor-male.png" alt="GP Icon" class="icon">
                         <h3>GP</h3>
                         <ul>
@@ -726,7 +740,7 @@
                     
 
                 <!-- Nurse/HCA -->
-                    <div class="option" onclick="handleOption('Nurse/HCA_sameday')">
+                    <div class="option" onclick="handleOption('Nurse/HCA Same Day, Nurse/HCA_sameday')">
                         <img src="https://img.icons8.com/ios/50/000000/nurse-female.png" alt="Nurse/HCA Icon" class="icon">
                         <h3>Nurse/HCA</h3>
                         <ul>
@@ -738,7 +752,7 @@
                     
 
                 <!-- Practice Pharmacist-->
-                    <div class="option" onclick="handleOption('Pharmacist_sameday')">
+                    <div id="PharmacistSameDayOption" class="option" onclick="handleOption('Pharmacist Same Day, Pharmacist_sameday')">
                         <img src="https://img.icons8.com/ios/50/000000/pills.png" alt="Pharmacist Icon" class="icon">
                         <h3>Practice Pharmacist</h3>
                         <ul>
@@ -764,11 +778,12 @@
             <p>Which clinician is this suitable for?</p>
             <div class="options-row">
             <!-- Physician Associate -->
-                <div class="option" onclick="handleOption('AHP_sameday')">
+                <div id="PASameDayOption" class="option" onclick="handleOption('Physician Associate Same Day, AHP_sameday')">
                     <img src="https://img.icons8.com/ios/50/000000/stethoscope.png" alt="Physician Associate Icon" class="icon">
                     <h3>Physician Associate</h3>
                     <ul>
-                        <li>Patient >1 month <65 years</li>
+                        <li>Child over 1 month (check scope of practice)</li>
+                        <li>Adult under 65</li>
                         <li>Mild to moderate acute illness (coughs, D&V)</li>
                         <li>Acute back pain</li>
                         <li>Severe pain</li>
@@ -778,11 +793,12 @@
                 </div>
 
             <!-- Advanced Nurse Practitioner -->
-                <div class="option" onclick="handleOption('ANP_sameday')">
+                <div id="ANPSameDayOption" class="option" onclick="handleOption('Advanced Nurse Practitioner Same Day, ANP_sameday')">
                     <img src="https://img.icons8.com/ios/50/000000/stethoscope.png" alt="ANP Icon" class="icon">
                     <h3>Advanced Nurse Practitioner</h3>
                     <ul>
-                        <li>Patient >5 years</li>
+                        <li>Patient over 5 years</li>
+                        <li>No pregnant women</li>
                         <li>Moderate acute illness (coughs, sore throat)</li>
                         <li>Minor injuries</li>
                         <li>Infections (UTI, ear infection)</li>
@@ -792,7 +808,7 @@
                 
 
             <!-- GP -->
-                <div class="option" onclick="handleOption('GP_sameday')">
+                <div class="option" onclick="handleOption('GP Same Day, GP_sameday')">
                     <img src="https://img.icons8.com/ios/50/000000/doctor-male.png" alt="GP Icon" class="icon">
                     <h3>GP</h3>
                     <ul>
@@ -808,7 +824,7 @@
                 
 
             <!-- Nurse/HCA -->
-                <div class="option" onclick="handleOption('Nurse/HCA_sameday')">
+                <div class="option" onclick="handleOption('Nurse/HCA Same Day, Nurse/HCA_sameday')">
                     <img src="https://img.icons8.com/ios/50/000000/nurse-female.png" alt="Nurse/HCA Icon" class="icon">
                     <h3>Nurse/HCA</h3>
                     <ul>
@@ -820,7 +836,7 @@
                 
 
             <!-- Practice Pharmacist-->
-                <div class="option" onclick="handleOption('Pharmacist_sameday')">
+                <div id="PharmacistSameDayOption" class="option" onclick="handleOption('Pharmacist Same Day, Pharmacist_sameday')">
                     <img src="https://img.icons8.com/ios/50/000000/pills.png" alt="Pharmacist Icon" class="icon">
                     <h3>Practice Pharmacist</h3>
                     <ul>
@@ -843,13 +859,22 @@
                 <img src="https://img.icons8.com/ios/50/000000/speech-bubble.png" alt="Speech Bubble Icon" class="icon">
                 <p>"A Physician Associate is a healthcare professional who works alongside doctors in GP surgeries, helping to diagnose and manage your health conditions under the supervision of a GP."</p>
             </div>
-            <img src="PA_sameday.png" alt="Physician Associate Same Day">
+            <img src="files/PA_sameday.png" alt="Physician Associate Same Day">
             </p>
             <p>
-            <a href="scope_of_practice.xlsx"><button>Check Scope of Practice</button></a> 
+            <a href="files/scope_of_practice.xlsx"><button>Check Scope of Practice</button></a> 
             </p>
-            <button onclick="handleOption('GP_sameday')">Not accepted</button>
-            <button onclick="showResult('Offered an appointment with a Physician Associate at their preferred site.')">Finish</button>
+            <form id="PA_sameday_Form">
+                <label for="PA_sameday_Phone">Phone number:</label>
+                <input type="text" id="PA_sameday_Phone" required>
+                <label for="PA_sameday_Symptoms">Symptoms:</label>
+                <input type="text" id="PA_sameday_Symptoms" required>
+                <label for="PA_sameday_Duration">Duration:</label>
+                <input type="text" id="PA_sameday_Duration" required>
+                <button type="button" onclick="copyPA_sameday_Details()">Copy to Clipboard</button>
+            </form>
+            <button onclick="handleOption('Physician Associate Same Day not accepted, GP_sameday')">Not accepted</button>
+            <button onclick="showResult('Booked a same day appointment with a Physician Associate at their preferred site.')">Finish</button>
             <button onclick="handleBack()">Back</button>
         </div>
 
@@ -864,7 +889,17 @@
             </div>
             <p>
             </p>
-            <button onclick="handleOption('GP_sameday')">Not accepted</button>
+            <a href="files/renu_skill_set.docx"><button>Check Scope of Practice</button></a>
+            <form id="ANP_sameday_Form">
+                <label for="ANP_sameday_Phone">Phone number:</label>
+                <input type="text" id="ANP_sameday_Phone" required>
+                <label for="ANP_sameday_Symptoms">Symptoms:</label>
+                <input type="text" id="ANP_sameday_Symptoms" required>
+                <label for="ANP_sameday_Duration">Duration:</label>
+                <input type="text" id="ANP_sameday_Duration" required>
+                <button type="button" onclick="copyANP_sameday_Details()">Copy to Clipboard</button>
+            </form>
+            <button onclick="handleOption('ANP Same Day not accepted, GP_sameday')">Not accepted</button>
             <button onclick="showResult('Offered an appointment with an Advanced Nurse Practitioner at their preferred site.')">Finish</button>
             <button onclick="handleBack()">Back</button>
         </div>
@@ -889,7 +924,7 @@
                 <p>If there are visual symptoms (eg. swelling, a rash or other skin problem), please ask the patient to send a photograph.</p>
             </div>
             <p>
-            <img src="Duty_triage.png" alt="Duty triage list">
+            <img src="files/Duty_triage.png" alt="Duty triage list">
             </p>
             <form id="dutyForm">
                 <label for="dutyPhone">Phone number:</label>
@@ -922,7 +957,7 @@
             <p>
             <img src="Pharm_query.png" alt="Nurse Same Day">
             </p>
-            <button onclick="handleOption('GP_sameday')">Not accepted</button>
+            <button onclick="handleOption('Nurse/HCA Same Day not accepted, GP_sameday')">Not accepted</button>
             <button onclick="showResult('Offered an appointment with a Practice Nurse at their preferred site.')">Finish</button>
             <button onclick="handleBack()">Back</button>
         </div>
@@ -939,6 +974,15 @@
             <p>
             <img src="Pharm_query.png" alt="Pharmacist Medication Query">
             </p>
+            <form id="Pharmacist_query_sameday_Form">
+                <label for="Pharmacist_query_sameday_Phone">Phone number:</label>
+                <input type="text" id="Pharmacist_query_sameday_Phone" required>
+                <label for="Pharmacist_query_sameday_Issue">Issue:</label>
+                <input type="text" id="Pharmacist_query_sameday_Issue" required>
+                <label for="Pharmacist_query_sameday_urgency">Urgency:</label>
+                <input type="text" id="Pharmacist_query_sameday_urgency" required>
+                <button type="button" onclick="copyPharmacist_query_sameday_Details()">Copy to Clipboard</button>
+            </form>
             <button onclick="showResult('Booked a medication query slot with a Practice Pharmacist. SMS consent obtained.')">Finish</button>
             <button onclick="handleBack()">Back</button>
         </div>
@@ -950,11 +994,12 @@
                 <p>Which clinician is this suitable for?</p>
                 <div class="options-row">
                 <!-- Physician Associate -->
-                    <div class="option" onclick="handleOption('AHP_soon')">
+                    <div class="option" onclick="handleOption('Physician Associate Soon, AHP_soon')">
                         <img src="https://img.icons8.com/ios/50/000000/stethoscope.png" alt="Physician Associate Icon" class="icon">
                         <h3>Physician Associate</h3>
                         <ul>
-                            <li>Patient >1 month <65 years</li>
+                            <li>Child over 1 month (check scope of practice)</li>
+                            <li>Adult under 65</li>
                             <li>Skin rash</li>
                             <li>Coughs</li>
                             <li>Mental health (mild/moderate)</li>
@@ -966,11 +1011,12 @@
                     
 
                 <!-- Advanced Nurse Practitioner -->
-                    <div class="option" onclick="handleOption('ANP_soon')">
+                    <div class="option" onclick="handleOption('Advanced Nurse Practitioner Soon, ANP_soon')">
                         <img src="https://img.icons8.com/ios/50/000000/stethoscope.png" alt="ANP Icon" class="icon">
                         <h3>Advanced Nurse Practitioner</h3>
                         <ul>
-                            <li>Patient >5 years</li>
+                            <li>Patient over 5 years</li>
+                            <li>No pregnant women</li>
                             <li>Skin conditions (eczema, acne)</li>
                             <li>Respiratory issues (asthma, persistent cough)</li>
                             <li>Gastrointestinal issues (IBS, constipation)</li>
@@ -980,7 +1026,7 @@
                     
 
                 <!-- Nurse/HCA -->
-                    <div class="option" onclick="handleOption('Nurse/HCA_soon')">
+                    <div class="option" onclick="handleOption('Nurse/HCA Soon, Nurse/HCA_soon')">
                         <img src="https://img.icons8.com/ios/50/000000/nurse-female.png" alt="Nurse/HCA Icon" class="icon">
                         <h3>Nurse/HCA</h3>
                         <ul>
@@ -992,7 +1038,7 @@
                     
                     
                 <!-- Practice Pharmacist -->
-                    <div class="option" onclick="handleOption('Pharmacist_soon')">
+                    <div class="option" onclick="handleOption('Pharmacist Soon, Pharmacist_soon')">
                         <img src="https://img.icons8.com/ios/50/000000/pills.png" alt="Pharmacist Icon" class="icon">
                         <h3>Practice Pharmacist</h3>
                         <ul>
@@ -1010,11 +1056,12 @@
             <p>Which clinician is this suitable for?</p>
             <div class="options-row">
             <!-- Physician Associate -->
-                <div class="option" onclick="handleOption('AHP_soon')">
+                <div class="option" onclick="handleOption('Physician Associate Soon, AHP_soon')">
                     <img src="https://img.icons8.com/ios/50/000000/stethoscope.png" alt="Physician Associate Icon" class="icon">
                     <h3>Physician Associate</h3>
                     <ul>
-                        <li>Patient >1 month <65 years</li>
+                        <li>Child over 1 month (check scope of practice)</li>
+                        <li>Adult under 65</li>
                         <li>Skin rash</li>
                         <li>Coughs</li>
                         <li>Mental health (mild/moderate)</li>
@@ -1026,11 +1073,12 @@
                 
 
             <!-- Advanced Nurse Practitioner -->
-                <div class="option" onclick="handleOption('ANP_soon')">
+                <div class="option" onclick="handleOption('Advanced Nurse Practitioner Soon, ANP_soon')">
                     <img src="https://img.icons8.com/ios/50/000000/stethoscope.png" alt="ANP Icon" class="icon">
                     <h3>Advanced Nurse Practitioner</h3>
                     <ul>
-                        <li>Patient >5 years</li>
+                        <li>Patient over 5 years</li>
+                        <li>No pregnant womenli>
                         <li>Skin conditions (eczema, acne)</li>
                         <li>Respiratory issues (asthma, persistent cough)</li>
                         <li>Gastrointestinal issues (IBS, constipation)</li>
@@ -1040,7 +1088,7 @@
                 
 
             <!-- Nurse/HCA -->
-                <div class="option" onclick="handleOption('Nurse/HCA_soon')">
+                <div class="option" onclick="handleOption('Nurse/HCA Soon, Nurse/HCA_soon')">
                     <img src="https://img.icons8.com/ios/50/000000/nurse-female.png" alt="Nurse/HCA Icon" class="icon">
                     <h3>Nurse/HCA</h3>
                     <ul>
@@ -1052,7 +1100,7 @@
                 
                 
             <!-- Practice Pharmacist -->
-                <div class="option" onclick="handleOption('Pharmacist_soon')">
+                <div class="option" onclick="handleOption('Pharmacist Soon, Pharmacist_soon')">
                     <img src="https://img.icons8.com/ios/50/000000/pills.png" alt="Pharmacist Icon" class="icon">
                     <h3>Practice Pharmacist</h3>
                     <ul>
@@ -1076,12 +1124,21 @@
                 <p>"A Physician Associate is a healthcare professional who works alongside doctors in GP surgeries, helping to diagnose and manage your health conditions under the supervision of a GP."</p>
             </div>                
             <p>
-                <img src="PA_soon.png" alt="Physician Associate Soon">
+                <img src="files/PA_soon.png" alt="Physician Associate Soon">
             </p>
             <p>
-                <a href="scope_of_practice.xlsx"><button>Check Scope of Practice</button></a> 
+                <a href="files/scope_of_practice.xlsx"><button>Check Scope of Practice</button></a> 
             </p>
-            <button onclick="handleOption('GP_sameday')">Not accepted</button>
+            <form id="PA_soon_Form">
+                <label for="PA_soon_Phone">Phone number:</label>
+                <input type="text" id="PA_soon_Phone" required>
+                <label for="PA_soon_Symptoms">Symptoms:</label>
+                <input type="text" id="PA_soon_Symptoms" required>
+                <label for="PA_soon_Duration">Duration:</label>
+                <input type="text" id="PA_soon_Duration" required>
+                <button type="button" onclick="copyPA_soon_Details()">Copy to Clipboard</button>
+            </form>
+            <button onclick="handleOption('Physician Associate Soon not accepted, GP_sameday')">Not accepted</button>
             <button onclick="showResult('Offered an appointment with a Physician Associate at their preferred site.')">Finish</button>
             <button onclick="handleBack()">Back</button>
         </div>
@@ -1097,7 +1154,17 @@
             </div>
             <p>
             </p>
-            <button onclick="handleOption('GP_sameday')">Not accepted</button>
+            <a href="files/renu_skill_set.docx"><button>Check Scope of Practice</button></a>
+            <form id="ANP_soon_Form">
+                <label for="ANP_soon_Phone">Phone number:</label>
+                <input type="text" id="ANP_soon_Phone" required>
+                <label for="ANP_soon_Symptoms">Symptoms:</label>
+                <input type="text" id="ANP_soon_Symptoms" required>
+                <label for="ANP_soon_Duration">Duration:</label>
+                <input type="text" id="ANP_soon_Duration" required>
+                <button type="button" onclick="copyANP_soon_Details()">Copy to Clipboard</button>
+            </form>
+            <button onclick="handleOption('ANP Soon not accepted, GP_sameday')">Not accepted</button>
             <button onclick="showResult('Offered an appointment with an Advanced Nurse Practitioner at their preferred site.')">Finish</button>
             <button onclick="handleBack()">Back</button>
         </div>
@@ -1125,8 +1192,17 @@
                 <p>"A Practice Pharmacist is a healthcare professional who works in the GP surgery, helping to manage your medications, provide health advice, and support the doctors in ensuring you receive the best care."</p>
             </div>
             <p>
-                <img src="Pharm_query.png" alt="Pharmacist Medication Query"><img src="Pharm_medrev.png" alt="Medication review appointment">
+                <img src="files/Pharm_query.png" alt="Pharmacist Medication Query"><img src="files/Pharm_medrev.png" alt="Medication review appointment">
             </p>
+            <form id="Pharmacist_query__soon_Form">
+                <label for="Pharmacist_query__soon_Phone">Phone number:</label>
+                <input type="text" id="Pharmacist_query_soon_Phone" required>
+                <label for="Pharmacist_query_soon_Issue">Issue:</label>
+                <input type="text" id="Pharmacist_query_soon_Issue" required>
+                <label for="Pharmacist_query_soon_urgency">Urgency:</label>
+                <input type="text" id="Pharmacist_query_soon_urgency" required>
+                <button type="button" onclick="copyPharmacist_query_soon_Details()">Copy to Clipboard</button>
+            </form>
             <button onclick="showResult('Booked a medication query slot with a Practice Pharmacist. SMS consent obtained.')">Finish</button>
             <button onclick="handleBack()">Back</button>
         </div>
@@ -1156,7 +1232,7 @@
                     
 
                 <!-- Nurse/HCA -->
-                    <div class="option" onclick="handleOption('Nurse/HCA_routine')">
+                    <div class="option" onclick="handleOption('Nurse/HCA routine, Nurse/HCA_routine')">
                         <img src="https://img.icons8.com/ios/50/000000/nurse-female.png" alt="Nurse/HCA Icon" class="icon">
                         <h3>Nurse/HCA</h3>
                         <ul>
@@ -1171,7 +1247,7 @@
                     
 
                 <!-- Practice Pharmacist -->
-                    <div class="option" onclick="handleOption('Pharmacist_routine')">
+                    <div class="option" onclick="handleOption('Pharmacist routine, Pharmacist_routine')">
                         <img src="https://img.icons8.com/ios/50/000000/pills.png" alt="Pharmacist Icon" class="icon">
                         <h3>Practice Pharmacist</h3>
                         <ul>
@@ -1281,6 +1357,15 @@
                     <img src="https://img.icons8.com/ios/50/000000/speech-bubble.png" alt="Speech Bubble Icon" class="icon">
                     <p>"A Practice Pharmacist is a healthcare professional who works in the GP surgery, helping to manage your medications, provide health advice, and support the doctors in ensuring you receive the best care."</p>
                 </div>
+                <form id="Pharmacist_query__routine_Form">
+                <label for="Pharmacist_query_routine_Phone">Phone number:</label>
+                <input type="text" id="Pharmacist_query_routine_Phone" required>
+                <label for="Pharmacist_query_routine_Issue">Issue:</label>
+                <input type="text" id="Pharmacist_query_routine_Issue" required>
+                <label for="Pharmacist_query_routine_urgency">Urgency:</label>
+                <input type="text" id="Pharmacist_query_routine_urgency" required>
+                <button type="button" onclick="copyPharmacist_query_routine_Details()">Copy to Clipboard</button>
+            </form>
                 <button onclick="showResult('Booked a telephone appointment with a Practice Pharmacist. SMS consent obtained.')">Finish</button>
                 <button onclick="handleBack()">Back</button>
             </div>
@@ -1334,24 +1419,24 @@
     <div class="result-box">
         <p>If cannot wait until tomorrow, take details to book on duty triage list (green).</p>
     </div>
-    <form id="housecallForm">
-        <label for="housecallPhone">Phone number:</label><br>
-        <input type="text" id="housecallPhone" name="housecallPhone"><br><br>
+    <form id="housecallForm2">
+        <label for="housecallPhone2">Phone number:</label><br>
+        <input type="text" id="housecallPhone2" name="housecallPhone2"><br><br>
 
-        <label for="housecallSymptoms">Symptoms:</label><br>
-        <input type="text" id="housecallSymptoms" name="housecallSymptoms"><br><br>
+        <label for="housecallSymptoms2">Symptoms:</label><br>
+        <input type="text" id="housecallSymptoms2" name="housecallSymptoms2"><br><br>
 
-        <label for="housecallDuration">Duration:</label><br>
-        <input type="text" id="housecallDuration" name="housecallDuration"><br><br>
+        <label for="housecallDuration2">Duration:</label><br>
+        <input type="text" id="housecallDuration2" name="housecallDuration2"><br><br>
 
-        <label for="housecallSite">Closest site:</label><br>
-        <select id="housecallSite" name="housecallSite" required>
+        <label for="housecallSite2">Closest site:</label><br>
+        <select id="housecallSite2" name="housecallSite2" required>
             <option value="">Select a site</option>
             <option value="Westway">Westway</option>
             <option value="Lansdowne">Lansdowne</option>
         </select><br><br>
 
-        <button type="button" onclick="copyHousecallDetails()">Copy to clipboard</button>
+        <button type="button" onclick="copyHousecallDetails2()">Copy to clipboard</button>
     </form>
     <button onclick="handleBack()">Back</button>
 </div>
@@ -1360,7 +1445,7 @@
 <!-- ADMIN TASK OPTIONS -->
 <div class="question" id="adminTask">
     <div class="options-grid">
-        <div class="option" onclick="handleOption('prescriptions')">
+        <div class="option" onclick="handleOption('Admin Prescriptions, prescriptions')">
             <img width="50" height="50" src="https://img.icons8.com/ios/50/file-prescription--v1.png" alt="file-prescription--v1"/>
             <h3>Prescriptions</h3>
             <ul>
@@ -1369,11 +1454,11 @@
                 <li>Prescription Queries</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('testResults')">
+        <div class="option" onclick="handleOption('Admin Test Results, testResults')">
             <img width="64" height="64" src="https://img.icons8.com/external-outline-berkahicon/64/external-Lab-Test-healthcare-outline-berkahicon.png">
             <h3>Test Results</h3>
         </div>
-        <div class="option" onclick="handleOption('sicknotes')">
+        <div class="option" onclick="handleOption('Admin Sick notes, sicknotes')">
             <img width="50" height="50" src="https://img.icons8.com/ios/50/triangular-bandage.png" alt="triangular-bandage"/>
             <h3>Sick notes</h3>
             <ul>
@@ -1381,7 +1466,7 @@
                 <li>Extension</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('SAR')">
+        <div class="option" onclick="handleOption('Admin Medical Records, SAR')">
             <img width="50" height="50" src="https://img.icons8.com/ios/50/apple-notes.png" alt="apple-notes"/>
             <h3>Medical Records</h3>
             <ul>
@@ -1389,7 +1474,7 @@
                 <li>Results Printouts</li>
             </ul>
         </div>"
-        <div class="option" onclick="handleOption('privateWork')">
+        <div class="option" onclick="handleOption('Admin Private Work, privateWork')">
             <img width="50" height="50" src="https://img.icons8.com/ios/50/secured-letter--v1.png" alt="secured-letter--v1"/>
             <h3>Private work</h3>
             <ul>
@@ -1398,7 +1483,7 @@
                 <li>Medicals</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('death')">
+        <div class="option" onclick="handleOption('Admin Death Admin, death')">
             <img width="50" height="50" src="https://img.icons8.com/ios/50/grim-reaper.png" alt="grim-reaper"/>
             <h3>Death Admin</h3>
             <ul>
@@ -1408,11 +1493,11 @@
                 <li>Medical examiner's request</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('urineSample')">
+        <div class="option" onclick="handleOption('Admin Urine Samples, urineSample')">
             <img width="50" height="50" src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/external-urine-healthcare-tanah-basah-basic-outline-tanah-basah.png">
             <h3>Urine samples</h3>
         </div>
-        <div class="option" onclick="handleOption('HBPM')">
+        <div class="option" onclick="handleOption('Admin HBPM, HBPM')">
             <img width="50" height="50" src="https://img.icons8.com/ios/50/sphygmomanometer.png" alt="sphygmomanometer"/>
             <h3>Home Blood Pressure Monitoring (HBPM)</h3>
             <ul>
@@ -1420,7 +1505,7 @@
                 <li>Patient readings submitted</li>
             </ul>
         </div>
-        <div class="option" onclick="handleOption('sharedCare')">
+        <div class="option" onclick="handleOption('Admin Shared Care, sharedCare')">
             <img width="50" height="50" src="https://img.icons8.com/ios/50/handshake--v1.png" alt="handshake--v1"/>
             <h3>Shared Care</h3>
             <ul>
@@ -1435,15 +1520,15 @@
 <!-- Prescriptions -->
 <div class="question" id="prescriptions">
     <div class="options-row">
-        <div class="option" onclick="handleOption('repeatPrescriptions')">
+        <div class="option" onclick="handleOption('Admin Repeat Prescriptions, repeatPrescriptions')">
             <img width="50" height="50" src="https://img.icons8.com/ios/50/file-prescription--v2.png" alt="file-prescription--v2"/>
             <h3>Repeat Prescriptions</h3>
         </div>
-        <div class="option" onclick="handleOption('acutePrescriptions')">
+        <div class="option" onclick="handleOption('Admin Acute Prescriptions, acutePrescriptions')">
             <img width="50" height="50" src="https://img.icons8.com/ios/50/file-prescription--v1.png" alt="file-prescription--v1"/>
             <h3>Acute Prescriptions</h3>
         </div>
-        <div class="option" onclick="handleOption('prescriptionQueries')">
+        <div class="option" onclick="handleOption('Admin Prescription Queries, prescriptionQueries')">
             <img width="48" height="48" src="https://img.icons8.com/parakeet-line/48/question-shield.png" alt="question-shield"/>
             <h3>Prescription Queries</h3>
         </div>
@@ -1461,7 +1546,7 @@
         </div>
     </div>
     <p>If the patient has a query regarding their repeat prescription (e.g. out of issues, needs a medication review, unable to order) see 'Prescription Queries'</p>
-    <button onclick="handleOption('prescriptionQueries')">Prescription Queries</button>
+    <button onclick="handleOption('Admin Prescription Queries, prescriptionQueries')">Prescription Queries</button>
     <a href="https://111.wales.nhs.uk/localservices/" target="_blank"><button>NHS 111 Local Services</button></a>
     <a href="https://www.afonelai.wales.nhs.uk/services/repeat-prescriptions/" target="_blank"><button>Practice Website</button></a>
     <button onclick="showResult('Advised patient how to order repeat prescription.')">Finish</button>
@@ -1504,8 +1589,8 @@
         </div>
     </div>
 	<p>Check the patient's mailbox for the test results. Have they been received and actioned by a clinician?</p>
-	<button onclick="handleOption('ActionedtestResults')">Yes</button>
-	<button onclick="handleOption('UnactionedtestResults')">No</button>
+	<button onclick="handleOption('Admin Actioned Test Results, ActionedtestResults')">Yes</button>
+	<button onclick="handleOption('Admin Unactioned Test Results, UnactionedtestResults')">No</button>
     <button onclick="handleBack()">Back</button>
 </div>
 <div class="question" id="ActionedtestResults">
@@ -1516,8 +1601,8 @@
 </div>
 <div class="question" id="UnactionedtestResults">
     <p>Has the test been done within the last 2 weeks?</p>
-    <button onclick="handleOption('testLessThan2Weeks')">Yes, within 2 weeks</button>
-    <button onclick="handleOption('testMoreThan2Weeks')">No, longer than 2 weeks</button>
+    <button onclick="handleOption('Admin Test Within 2 Weeks, testLessThan2Weeks')">Yes, within 2 weeks</button>
+    <button onclick="handleOption('Admin Test Longer than 2 Weeks, testMoreThan2Weeks')">No, longer than 2 weeks</button>
     <button onclick="handleBack()">Back</button>
  </div>
 
@@ -1554,10 +1639,10 @@
 <!-- Sick notes -->
 <div class="question" id="sicknotes">
     <div class="options-row">
-        <div class="option" onclick="handleOption('newMED3')">
+        <div class="option" onclick="handleOption('Admin New MED3, newMED3')">
         <h3>New Request</h3>
         </div>
-        <div class="option" onclick="handleOption('extendMED3')">
+        <div class="option" onclick="handleOption('Admin Extend MED3, extendMED3')">
         <h3>Extension</h3>
         </div>
     </div>
@@ -1568,8 +1653,8 @@
     <p>Check that the patient has self-certified for 7 days, if not advise them that it is a legal requirement for their employer to accept this.</p>
     <p>We need evidence to show a patient is not fit for work - either an A&E note, hospital letter, or recent consultation regarding the problem.</p>
     <p>If a patient has not consulted regarding the problem, they will need an appointment. Click the button below to find an appropriate appointment for them.</p>
-        <button onclick="handleOption('q3')">Appointments</button>
-        <button onclick="handleOption('extendMED3')">Details for MED3</button>
+        <button onclick="handleOption('Appointment needed re MED3, q3')">Appointments</button>
+        <button onclick="handleOption('Admin Extend MED3, extendMED3')">Details for MED3</button>
         <button onclick="handleBack()">Back</button>
 </div>
 
@@ -1637,19 +1722,19 @@
 
 <div class="question" id="death">
     <div class="options-row">
-        <div class="option" onclick="handleOption('newDeath')">
+        <div class="option" onclick="handleOption('Admin New Death, newDeath')">
             <img width="50" height="50" src="https://img.icons8.com/ios/50/grim-reaper.png" alt="grim-reaper"/>
             <h3>New death</h3>
         </div>
-        <div class="option" onclick="handleOption('deathCertificate')">
+        <div class="option" onclick="handleOption('Admin Death Certificate Request, deathCertificate')">
             <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/certificate.png" alt="certificate"/>
             <h3>Death certificate request</h3>
         </div>
-        <div class="option" onclick="handleOption('coronerRequest')">
+        <div class="option" onclick="handleOption('Admin Coroners Request, coronerRequest')">
             <img width="50" height="50" src="https://img.icons8.com/ios/50/death.png" alt="death"/>
             <h3>Coroner's request</h3>
         </div>
-        <div class="option" onclick="handleOption('MERequest')">
+        <div class="option" onclick="handleOption('Admin ME request, MERequest')">
             <img width="50" height="50" src="https://img.icons8.com/ios/50/test-failed.png" alt="test-failed"/>
             <h3>Medical examiner request</h3>
         </div>
@@ -1670,7 +1755,7 @@
         <p>Make a Daybook announcement regarding the death so that all clinicians are informed.</p>
         <p>Inform the PCA assigned to Registrations so that the deceased patient can be inactivated promptly.</p>
         <p>If an out of hospital death, proceed to death certificate request</p>
-        <button onclick="handleOption('deathCertificate')">Death certificate request</button>
+        <button onclick="handleOption('Admin Death Certificate Request, deathCertificate')">Death certificate request</button>
         <button onclick="showResult('Informed re in-hospital death')">Finish</button>
         <button onclick="handleBack()">Back</button>
 </div>
@@ -1760,8 +1845,89 @@
         &copy; Afon Elai Partnership 2024
     </div>
 
+<!-- SheetJS -->      
 
-    <script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+
+<!-- Firebase SDK -->
+<script type="module">
+    // Import the functions you need from the SDKs
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
+    
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDqI-0LbeLDqd8En6AhttjWWXZVJ9Ipc-M",
+      authDomain: "pca-navigation-tool.firebaseapp.com",
+      projectId: "pca-navigation-tool",
+      storageBucket: "pca-navigation-tool.appspot.com",
+      messagingSenderId: "256439703134",
+      appId: "1:256439703134:web:860afec0a27ba6e930c6cf",
+      measurementId: "G-YJQ6N4S0VV"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const database = getDatabase(app);
+
+    window.database = database
+  
+    // Function to save settings to the Firebase Realtime Database
+    function saveConfiguration() {
+      const PASameDayEnabled = document.getElementById('PASameDayToggle').checked;
+      const ANPSameDayEnabled = document.getElementById('ANPSameDayToggle').checked;
+      const PharmacistSameDayEnabled = document.getElementById('PharmacistSameDayToggle').checked;
+  
+      // Save the settings to Firebase Realtime Database
+      set(ref(database, 'configuration/clinicianSettings'), {
+        PASameDayEnabled: PASameDayEnabled,
+        ANPSameDayEnabled: ANPSameDayEnabled,
+        PharmacistSameDayEnabled: PharmacistSameDayEnabled
+      })
+      .then(() => {
+        alert('Configuration saved successfully!');
+      })
+      .catch((error) => {
+        console.error('Error saving configuration:', error);
+        alert('Error saving configuration: ' + error.message);
+      });
+    }
+  
+    // Function to load and apply the configuration
+    function applyConfiguration() {
+      const dbRef = ref(database);
+      get(child(dbRef, 'configuration/clinicianSettings')).then((snapshot) => {
+        if (snapshot.exists()) {
+          const config = snapshot.val();
+          document.getElementById('PASameDayOption').style.display = config.PASameDayEnabled ? 'block' : 'none';
+          document.getElementById('ANPSameDayOption').style.display = config.ANPSameDayEnabled ? 'block' : 'none';
+          document.getElementById('PharmacistSameDayOption').style.display = config.PharmacistSameDayEnabled ? 'block' : 'none';
+        } else {
+          console.log('No data available');
+        }
+      }).catch((error) => {
+        console.error('Error fetching configuration:', error);
+      });
+    }
+  
+    // Expose the functions to the global scope
+    window.saveConfiguration = saveConfiguration;
+    window.applyConfiguration = applyConfiguration;
+  
+    // Call the applyConfiguration function when the page loads
+    window.onload = function() {
+      applyConfiguration();
+    };
+
+    
+  </script>
+  
+
+
+<!-- Javascript functions -->
+        <script>
         let historyStack = [];
 
         document.addEventListener('DOMContentLoaded', (event) => {
@@ -1775,44 +1941,21 @@
                 historyStack.push(id);
             }
         }
-
-        function showResult(text) {
-            document.getElementById('question-container').style.display = 'none';
-            document.getElementById('result-container').style.display = 'block';
-            document.getElementById('result-text').innerText = text;
-            historyStack = [];
-        }
-
-        function handleAnswer(questionId, answer) {
-            switch (questionId) {
-                case 'telephone':
-                    if (answer === 'yes') {
-                        showResult('Advise calling 999 or going to A&E. Emphasize the urgency.');
-                    } else {
-                        showQuestion('q2');
-                    }
-                    break;
-                case 'q2':
-                    if (answer === 'no') {
-                        showQuestion('q3');
-                    }
-                    break;
-                case 'pharmacy':
-                    if (answer === 'yes') {
-                        showQuestion('referPharmacy');
-                    } else {
-                        historyStack.pop(); // Remove current step from history
-                        showQuestion(historyStack[historyStack.length - 1]); // Go back to previous step
-                    }
-                    break;
-                default:
-                    console.error('Unknown question ID:', questionId);
-                    break;
-            }
-        }
-
-        function handleOption(option) {
+       
+        function handleOption(logText, option) {
+            logOutcome(logText);
             showQuestion(option);
+        }
+
+        function logOutcome(logText) {
+            const timestamp = new Date().toISOString();
+            const logData = {
+                option: logText,
+                timestamp: timestamp
+            };
+            const dB = getDatabase(app);
+            const newLogRef = ref(database, 'logs/' + Date.now());
+            set(newLogRef, logData)
         }
 
         function handleBack() {
@@ -1829,39 +1972,254 @@
             showQuestion('q0');
         }
 
-        function startOver() {
-    // Clear any history or state that tracks the current question
-    historyStack = [];
-    
-    // Reset the display of questions by hiding all other questions
-    document.querySelectorAll('.question').forEach(q => q.style.display = 'none');
-    
-    // Show the starting question (assumed to be 'q0')
-    showQuestion('q0');
+        function showResult(message) {
+    // Hide all questions
+    var questions = document.getElementsByClassName('question');
+    for (var i = 0; i < questions.length; i++) {
+        questions[i].style.display = 'none';
+    }
+
+    // Get the result container and display the message
+    var resultContainer = document.getElementById('result-container');
+    resultContainer.innerHTML = `
+        <p>${message}</p>
+        <button onclick="startOver()">Return to Start</button>
+    `;
+
+    // Make sure the result container is visible
+    resultContainer.style.display = 'block';
 }
+
+
+function startOver() {
+    // Hide all questions
+    var questions = document.getElementsByClassName('question');
+    for (var i = 0; i < questions.length; i++) {
+        questions[i].style.display = 'none';
+    }
+
+    // Hide the result container
+    var resultContainer = document.getElementById('result-container');
+    if (resultContainer) {
+        resultContainer.style.display = 'none';
+    }
+
+    // Show the initial question (q0)
+    var initialQuestion = document.getElementById('q0');
+    if (initialQuestion) {
+        initialQuestion.style.display = 'block';
+    }
+}
+
+
+
         
 
-        function copyDutyDetails() {
-            const phone = document.getElementById('dutyPhone').value;
-            const symptoms = document.getElementById('dutySymptoms').value;
-            const duration = document.getElementById('dutyDuration').value;
-            const site = document.getElementById('dutySite').value;
+function copyDutyDetails() {
+    const phone = document.getElementById('dutyPhone').value;
+    const symptoms = document.getElementById('dutySymptoms').value;
+    const duration = document.getElementById('dutyDuration').value;
+    const site = document.getElementById('dutySite').value;
 
-            console.log('Phone:', phone);
+    console.log('Phone:', phone);
     console.log('Symptoms:', symptoms);
     console.log('Duration:', duration);
     console.log('Site:', site);
 
-            if (!phone || !symptoms || !duration || !site) {
-                alert('Please fill out all required fields.');
-                return;
-            }
+    // Check if all required fields are filled
+    if (!phone || !symptoms || !duration || !site) {
+        alert('Please fill out all required fields.');
+        return;
+    }
 
-            const details = `Site: ${site}\nPhone number: ${phone}\nSymptoms: ${symptoms}\nDuration: ${duration}`;
-            navigator.clipboard.writeText(details).then(() => {
-                alert('Details copied to clipboard');
-            });
-        }
+    // Format the details for copying
+    const details = `Site: ${site}\nPhone number: ${phone}\nSymptoms: ${symptoms}\nDuration: ${duration}`;
+    
+    // Copy details to clipboard
+    navigator.clipboard.writeText(details).then(() => {
+        alert('Details copied to clipboard');
+
+        // Reset the form after successful copy
+        document.getElementById('dutyForm').reset();
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+
+function copyPA_sameday_Details() {
+    const phone = document.getElementById('PA_sameday_Phone').value;
+    const symptoms = document.getElementById('PA_sameday_Symptoms').value;
+    const duration = document.getElementById('PA_sameday_Duration').value;
+    
+    console.log('Phone:', phone);
+    console.log('Symptoms:', symptoms);
+    console.log('Duration:', duration);
+    
+    // Check if all required fields are filled
+    if (!phone || !symptoms || !duration) {
+        alert('Please fill out all required fields.');
+        return;
+    }
+
+    // Format the details for copying
+    const details = `Phone number: ${phone}\nSymptoms: ${symptoms}\nDuration: ${duration}`;
+    
+    // Copy details to clipboard
+    navigator.clipboard.writeText(details).then(() => {
+        alert('Details copied to clipboard');
+
+        // Reset the form after successful copy
+        document.getElementById('PA_sameday_Form').reset();
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+
+function copyANP_sameday_Details() {
+    const phone = document.getElementById('ANP_sameday_Phone').value;
+    const symptoms = document.getElementById('ANP_sameday_Symptoms').value;
+    const duration = document.getElementById('ANP_sameday_Duration').value;
+    
+    console.log('Phone:', phone);
+    console.log('Symptoms:', symptoms);
+    console.log('Duration:', duration);
+    
+    // Check if all required fields are filled
+    if (!phone || !symptoms || !duration) {
+        alert('Please fill out all required fields.');
+        return;
+    }
+
+    // Format the details for copying
+    const details = `Phone number: ${phone}\nSymptoms: ${symptoms}\nDuration: ${duration}`;
+    
+    // Copy details to clipboard
+    navigator.clipboard.writeText(details).then(() => {
+        alert('Details copied to clipboard');
+
+        // Reset the form after successful copy
+        document.getElementById('ANP_sameday_Form').reset();
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+
+function copyPharmacist_query_sameday_Details() {
+    const phone = document.getElementById('Pharmacist_query_sameday_Phone').value;
+    const issue = document.getElementById('Pharmacist_query_sameday_Issue').value;
+    const urgency = document.getElementById('Pharmacist_query_sameday_urgency').value;
+    
+    console.log('Phone:', phone);
+    console.log('Issue:', issue);
+    console.log('Urgency:', urgency);
+    
+    // Check if all required fields are filled
+    if (!phone || !issue || !urgency) {
+        alert('Please fill out all required fields.');
+        return;
+    }
+
+    // Format the details for copying
+    const details = `Phone number: ${phone}\nIssue: ${issue}\nUrgency: ${urgency}`;
+    
+    // Copy details to clipboard
+    navigator.clipboard.writeText(details).then(() => {
+        alert('Details copied to clipboard');
+
+        // Reset the form after successful copy
+        document.getElementById('Pharmacist_query_sameday_Form').reset();
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+
+function copyPA_soon_Details() {
+    const phone = document.getElementById('PA_soon_Phone').value;
+    const symptoms = document.getElementById('PA_soon_Symptoms').value;
+    const duration = document.getElementById('PA_soon_Duration').value;
+    
+    console.log('Phone:', phone);
+    console.log('Symptoms:', symptoms);
+    console.log('Duration:', duration);
+    
+    // Check if all required fields are filled
+    if (!phone || !symptoms || !duration) {
+        alert('Please fill out all required fields.');
+        return;
+    }
+
+    // Format the details for copying
+    const details = `Phone number: ${phone}\nSymptoms: ${symptoms}\nDuration: ${duration}`;
+    
+    // Copy details to clipboard
+    navigator.clipboard.writeText(details).then(() => {
+        alert('Details copied to clipboard');
+
+        // Reset the form after successful copy
+        document.getElementById('PA_soon_Form').reset();
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+
+function copyANP_soon_Details() {
+    const phone = document.getElementById('ANP_soon_Phone').value;
+    const symptoms = document.getElementById('ANP_soon_Symptoms').value;
+    const duration = document.getElementById('ANP_soon_Duration').value;
+    
+    console.log('Phone:', phone);
+    console.log('Symptoms:', symptoms);
+    console.log('Duration:', duration);
+    
+    // Check if all required fields are filled
+    if (!phone || !symptoms || !duration) {
+        alert('Please fill out all required fields.');
+        return;
+    }
+
+    // Format the details for copying
+    const details = `Phone number: ${phone}\nSymptoms: ${symptoms}\nDuration: ${duration}`;
+    
+    // Copy details to clipboard
+    navigator.clipboard.writeText(details).then(() => {
+        alert('Details copied to clipboard');
+
+        // Reset the form after successful copy
+        document.getElementById('ANP_soon_Form').reset();
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+
+function copyPharmacist_query_soon_Details() {
+    const phone = document.getElementById('Pharmacist_query_soon_Phone').value;
+    const issue = document.getElementById('Pharmacist_query_soon_Issue').value;
+    const urgency = document.getElementById('Pharmacist_query_soon_urgency').value;
+    
+    console.log('Phone:', phone);
+    console.log('Issue:', issue);
+    console.log('Urgency:', urgency);
+    
+    // Check if all required fields are filled
+    if (!phone || !issue || !urgency) {
+        alert('Please fill out all required fields.');
+        return;
+    }
+
+    // Format the details for copying
+    const details = `Phone number: ${phone}\nIssue: ${issue}\nUrgency: ${urgency}`;
+    
+    // Copy details to clipboard
+    navigator.clipboard.writeText(details).then(() => {
+        alert('Details copied to clipboard');
+
+        // Reset the form after successful copy
+        document.getElementById('Pharmacist_query_soon_Form').reset();
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+
 
         function copyRoutineDetails() {
             const phone = document.getElementById('routinePhone').value;
@@ -1879,8 +2237,38 @@
             const details = `Phone number: ${phone}\nSymptoms: ${symptoms}\nDuration: ${duration}\nSite: ${site}\nPreferred clinician: ${clinician}\nAvailability: ${availability}`;
             navigator.clipboard.writeText(details).then(() => {
                 alert('Details copied to clipboard');
+                document.getElementById('routineForm').reset();
             });
         }
+
+        function copyPharmacist_query_routine_Details() {
+    const phone = document.getElementById('Pharmacist_query_routine_Phone').value;
+    const issue = document.getElementById('Pharmacist_query_routine_Issue').value;
+    const urgency = document.getElementById('Pharmacist_query_routine_urgency').value;
+    
+    console.log('Phone:', phone);
+    console.log('Issue:', issue);
+    console.log('Urgency:', urgency);
+    
+    // Check if all required fields are filled
+    if (!phone || !issue || !urgency) {
+        alert('Please fill out all required fields.');
+        return;
+    }
+
+    // Format the details for copying
+    const details = `Phone number: ${phone}\nIssue: ${issue}\nUrgency: ${urgency}`;
+    
+    // Copy details to clipboard
+    navigator.clipboard.writeText(details).then(() => {
+        alert('Details copied to clipboard');
+
+        // Reset the form after successful copy
+        document.getElementById('Pharmacist_query_routine_Form').reset();
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
 
         function copyMaternityServices() {
             const text = "Please visit https://cavuhb.nhs.wales/files/maternity-services/registering-your-pregnancy-with-cardiff-and-vale-uhb-maternity/";
@@ -1943,56 +2331,13 @@
             // Use the Clipboard API to copy the text
             navigator.clipboard.writeText(formData).then(() => {
             alert("Form data copied to clipboard:\n" + formData);
+            form.reset();
              }).catch(err => {
             console.error('Failed to copy text: ', err);
              });
         }
 
-	function showResult(text) {
-            document.getElementById('question-container').style.display = 'none';
-            document.getElementById('result-container').style.display = 'block';
-            document.getElementById('result-text').innerText = text;
-            
-            logOutcome(text);  // Log the outcome
-            
-            historyStack = [];
-        }
-
-        function logOutcome(outcome) {
-            const timestamp = new Date().toISOString();
-            const logEntry = {
-                outcome: outcome,
-                timestamp: timestamp
-            };
-            
-            // Retrieve existing logs or create a new array if none exists
-            let logs = JSON.parse(localStorage.getItem('outcomeLogs')) || [];
-            
-            // Add the new log entry
-            logs.push(logEntry);
-            
-            // Save the updated logs back to Local Storage
-            localStorage.setItem('outcomeLogs', JSON.stringify(logs));
-            
-            console.log("Outcome logged locally:", logEntry);
-        }
-
-        function getLoggedOutcomes() {
-            // Retrieve logs from Local Storage
-            return JSON.parse(localStorage.getItem('outcomeLogs')) || [];
-        }
-
-        function viewOutcomes() {
-            const logs = getLoggedOutcomes();
-            alert(JSON.stringify(logs, null, 2));
-        }
-
-        function clearLoggedOutcomes() {
-            // Clear all logs
-            localStorage.removeItem('outcomeLogs');
-            console.log("All logs cleared");
-        }
-
+        
         function handleHousecallTime() {
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
@@ -2049,11 +2394,53 @@ function copyHousecallDetails() {
     // Copy to clipboard
     navigator.clipboard.writeText(details).then(() => {
         alert('Details copied to clipboard');
+        document.getElementById('housecallForm').reset();
     }).catch(err => {
         console.error('Failed to copy details:', err);
     });
 }
 
+function copyHousecallDetails2() {
+    const phoneField = document.getElementById('housecallPhone2');
+    const symptomsField = document.getElementById('housecallSymptoms2');
+    const durationField = document.getElementById('housecallDuration2');
+    const siteField = document.getElementById('housecallSite2');
+
+    // Check if fields exist in the DOM
+    if (!phoneField || !symptomsField || !durationField || !siteField) {
+        console.error('One or more form fields are missing from the DOM.');
+        return;
+    }
+
+    // Capture the values and trim spaces
+    const phone = phoneField.value.trim();
+    const symptoms = symptomsField.value.trim();
+    const duration = durationField.value.trim();
+    const site = siteField.value;
+
+    // Log field values to check if they are captured
+    console.log('Phone:', phone);
+    console.log('Symptoms:', symptoms);
+    console.log('Duration:', duration);
+    console.log('Closest Site:', site);
+
+    // Validate that all required fields are filled
+    if (!phone || !symptoms || !duration || !site) {
+        alert('Please fill out all required fields.');
+        return;
+    }
+
+    // Create the string to be copied to the clipboard
+    const details = `Closest site: ${site}\nPhone number: ${phone}\nSymptoms: ${symptoms}\nDuration: ${duration}`;
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(details).then(() => {
+        alert('Details copied to clipboard');
+        document.getElementById('housecallForm2').reset();
+    }).catch(err => {
+        console.error('Failed to copy details:', err);
+    });
+}
 
 
         function handleSameDayTime() {
@@ -2088,7 +2475,59 @@ function copyHousecallDetails() {
                 showQuestion('GP_routine_after_4pm');
             }
         }
+        
+// Password-protect the configuration page
+function showConfigPage() {
+  var password = prompt("Please enter the manager password:");
+  if (password === "admin") {
+    window.open('files/admin_page.html', '_blank');
+    loadConfiguration(); // Load current settings from Firebase
+  } else {
+    alert("Incorrect password.");
+  }
+}
 
-    </script>
+
+// Function to export logs to Excel
+function exportLogsToExcel() {
+  const db = getDatabase(app); // Ensure you're using the initialized Firebase app
+
+  // Get all logs from Firebase
+  const logsRef = ref(db, 'logs');
+  get(logsRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const logs = snapshot.val();
+        const data = [];
+
+        // Convert the logs object into an array of data
+        for (const key in logs) {
+          if (logs.hasOwnProperty(key)) {
+            data.push({
+              Option: logs[key].option,
+              Timestamp: logs[key].timestamp
+            });
+          }
+        }
+
+        // Convert the data array to a sheet and export it to Excel
+        const ws = XLSX.utils.json_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Logs');
+
+        // Export to Excel file
+        XLSX.writeFile(wb, 'logs.xlsx');
+      } else {
+        console.log('No logs available for export.');
+      }
+    })
+    .catch((error) => {
+      console.error('Error fetching logs:', error);
+    });
+}
+
+
+</script>
 </body>
 </html>
+
